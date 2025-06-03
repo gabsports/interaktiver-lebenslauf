@@ -1,0 +1,29 @@
+.glow-button {
+  position: relative;
+  background-color: #0f0f0f;
+  color: cyan;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: 1px solid cyan;
+  cursor: pointer;
+  z-index: 1;
+  overflow: visible;
+}
+
+.glow-button::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: inherit;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  z-index: -1;
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-button:hover::after {
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.9);
+}
