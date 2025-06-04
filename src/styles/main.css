@@ -1,4 +1,14 @@
-0%, 100% {
+/* src/styles/main.css */
+
+body {
+  margin: 0;
+  background-color: #0f0f0f;
+  font-family: sans-serif;
+  color: white;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
   }
   50% {
@@ -8,21 +18,18 @@
 
 .glow-button {
   animation: glow-pulse 2s infinite ease-in-out;
-  background: linear-gradient(135deg, #0b0f0f, #1b2222);
-  color: #d0f0ff;
+  background-color: #0f0f0f;
+  color: rgb(111, 116, 116);
   font-weight: 600;
-  padding: 12px 32px;
-  width: 220px;
-  text-align: left;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 255, 255, 0.4);
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: 1px solid rgb(0, 11, 11);
+  box-shadow: 0 0 20px rgba(57, 70, 70, 0.6);
+  transition: box-shadow 0.3s ease;
 }
 
 .glow-button:hover {
-  box-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
-  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.9);
 }
 
 .three-scene-container {

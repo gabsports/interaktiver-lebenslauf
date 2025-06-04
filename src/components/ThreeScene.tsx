@@ -1,7 +1,6 @@
-
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import AnimatedObject from './AnimatedObject';
+import VideoCube from './VideoCube';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import Starfield from './Starfield';
 import TopButtonBar from './TopButtonBar';
@@ -22,7 +21,21 @@ export default function ThreeScene() {
 
         <Starfield count={6000} radius={100} />
 
-        <AnimatedObject />
+        {/**
+         * Display a single video on the front face of the cube. Place your
+         * video file in `public/videos` and reference it here. The other sides
+         * fall back to the base material color.
+         */}
+        <VideoCube
+          sources={[
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            '/videos/front.mp4', // Front face
+            undefined,
+          ]}
+        />
 
         <OrbitControls />
         <EffectComposer>
