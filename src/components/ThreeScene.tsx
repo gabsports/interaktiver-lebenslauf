@@ -1,3 +1,4 @@
+
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import AnimatedObject from './AnimatedObject';
@@ -12,7 +13,7 @@ export default function ThreeScene() {
 
       <Canvas
         className="three-scene-canvas rounded-lg shadow-lg"
-        style={{ width: 600, height: 600, background: '#0f0f0f' }}
+        style={{ background: '#0f0f0f' }}
         camera={{ position: [0, 0, 6], fov: 50 }}
         onCreated={({ gl }) => gl.setClearColor('#0f0f0f')}
       >
