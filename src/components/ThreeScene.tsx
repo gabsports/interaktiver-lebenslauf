@@ -2,12 +2,13 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import AnimatedObject from './AnimatedObject';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import OrbitingButtons from './OrbitingButtons';
 import Starfield from './Starfield';
+import TopButtonBar from './TopButtonBar';
 
 export default function ThreeScene() {
   return (
-    <div className="flex justify-center items-center w-[400px] h-[400px]">
+    <div className="relative flex justify-center items-center w-[400px] h-[400px]">
+      <TopButtonBar />
 
       <Canvas
        className="w-[600px] h-[600px] rounded-lg shadow-lg"
@@ -21,7 +22,7 @@ export default function ThreeScene() {
         <Starfield count={6000} radius={100} />
 
         <AnimatedObject />
-        <OrbitingButtons />
+        
 
         <OrbitControls />
         <EffectComposer>

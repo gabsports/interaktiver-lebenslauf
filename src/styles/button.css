@@ -1,29 +1,34 @@
 .glow-button {
   position: relative;
-  background-color: #0f0f0f;
-  color: cyan;
-  font-weight: 600;
-  padding: 10px 24px;
-  border-radius: 999px;
-  border: 1px solid cyan;
+  background: none;
+  border: none;
   cursor: pointer;
-  z-index: 1;
-  overflow: visible;
 }
 
-.glow-button::after {
+.glow-core {
+  position: relative;
+  padding: 10px 24px;
+  color: cyan;
+  border: 1px solid cyan;
+  border-radius: 999px;
+  background-color: #0f0f0f;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.glow-core::before {
   content: '';
   position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
+  top: 0; left: 0; right: 0; bottom: 0;
   border-radius: inherit;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  transform: scale(1.4); /* 🚀 Kein Shadow, sondern Glow-Effekt durch Skalierung */
+  background: radial-gradient(rgba(0,255,255,0.5), transparent);
   z-index: -1;
-  transition: box-shadow 0.3s ease;
+  transition: opacity 0.3s ease;
+  opacity: 0.6;
 }
 
-.glow-button:hover::after {
-  box-shadow: 0 0 40px rgba(0, 255, 255, 0.9);
+.glow-core:hover::before {
+  opacity: 0.9;
 }
+

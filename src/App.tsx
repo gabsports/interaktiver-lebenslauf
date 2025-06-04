@@ -3,11 +3,11 @@ import './styles/main.css';
 
 export default function App() {
   return (
-   <div className="app-container">
-      {/* 🔳 Button-Leiste oben */}
-    
-      
+       <div className="app-container">
       <ThreeScene />
     </div>
   );
 }
+    
+      
+   
