@@ -1,4 +1,4 @@
-import '../styles/TopButtonBar.css'
+import '../styles/TopButtonBar.css';
 
 export default function TopButtonBar() {
   return (
