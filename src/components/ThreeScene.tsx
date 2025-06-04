@@ -1,3 +1,6 @@
++16
+-26
+
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import AnimatedObject from './AnimatedObject';
@@ -11,18 +14,17 @@ export default function ThreeScene() {
       <TopButtonBar />
 
       <Canvas
-       className="w-[600px] h-[600px] rounded-lg shadow-lg"
-  style={{ width: 1600, height: 1000, background: '#0f0f0f' }}
-  camera={{ position: [0, 0, 6], fov: 50 }}
-  onCreated={({ gl }) => gl.setClearColor('#0f0f0f')}
->
+        className="w-[600px] h-[600px] rounded-lg shadow-lg"
+        style={{ width: 1600, height: 1000, background: '#0f0f0f' }}
+        camera={{ position: [0, 0, 6], fov: 50 }}
+        onCreated={({ gl }) => gl.setClearColor('#0f0f0f')}
+      >
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} />
 
         <Starfield count={6000} radius={100} />
 
         <AnimatedObject />
-        
 
         <OrbitControls />
         <EffectComposer>
@@ -36,6 +38,5 @@ export default function ThreeScene() {
     </div>
   );
 }
-
 
 
