@@ -1,13 +1,4 @@
-/* src/styles/main.css */
 
-body {
-  margin: 0;
-  background-color: #0f0f0f;
-  font-family: sans-serif;
-  color: white;
-}
-
-@keyframes glow-pulse {
   0%, 100% {
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
   }
@@ -33,4 +24,14 @@ body {
 .glow-button:hover {
   box-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
   transform: translateY(-2px);
+}
+
+.three-scene-container {
+  width: 400px;
+  height: 400px;
+}
+
+.three-scene-canvas {
+  width: 600px;
+  height: 600px;
 }

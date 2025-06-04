@@ -1,5 +1,3 @@
-
-
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import AnimatedObject from './AnimatedObject';
@@ -9,12 +7,12 @@ import TopButtonBar from './TopButtonBar';
 
 export default function ThreeScene() {
   return (
-    <div className="relative flex justify-center items-center w-[400px] h-[400px]">
+    <div className="relative flex justify-center items-center three-scene-container">
       <TopButtonBar />
 
       <Canvas
-        className="w-[600px] h-[600px] rounded-lg shadow-lg"
-        style={{ width: 1600, height: 1000, background: '#0f0f0f' }}
+        className="three-scene-canvas rounded-lg shadow-lg"
+        style={{ width: 600, height: 600, background: '#0f0f0f' }}
         camera={{ position: [0, 0, 6], fov: 50 }}
         onCreated={({ gl }) => gl.setClearColor('#0f0f0f')}
       >
@@ -37,4 +35,3 @@ export default function ThreeScene() {
     </div>
   );
 }
-
