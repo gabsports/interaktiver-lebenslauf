@@ -1,13 +1,11 @@
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Html } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import AnimatedObject from './AnimatedObject';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import OrbitingButtons from './OrbitingButtons';
 import Starfield from './Starfield';
 
 export default function ThreeScene() {
-   {/* 1. Sternenhimmel im Hintergrund */}
-      <Starfield count={6000} radius={100} />
   return (
     <div className="flex justify-center items-center w-[400px] h-[400px]">
 
@@ -20,24 +18,19 @@ export default function ThreeScene() {
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} />
 
-        {/* animierter Würfel */}
-        {/* 1. Sternenhimmel im Hintergrund */}
         <Starfield count={6000} radius={100} />
 
-        <AnimatedObject/>
-        <OrbitingButtons/>
-
-    
-
+        <AnimatedObject />
+        <OrbitingButtons />
 
         <OrbitControls />
         <EffectComposer>
-  <Bloom
-    intensity={1.2}            // Stärke des Glows
-    luminanceThreshold={0.2}   // ab wann etwas leuchtet
-    luminanceSmoothing={0.9}   // weichere Übergänge
-  />
-</EffectComposer>
+          <Bloom
+            intensity={1.2}
+            luminanceThreshold={0.2}
+            luminanceSmoothing={0.9}
+          />
+        </EffectComposer>
       </Canvas>
     </div>
   );
