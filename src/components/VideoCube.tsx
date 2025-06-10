@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -33,16 +33,29 @@ export default function VideoCube({ sources }: VideoCubeProps) {
       if (!src) return null;
       const video = document.createElement('video');
       video.src = src;
+      video.crossOrigin = 'anonymous';
       video.loop = true;
       video.muted = true;
       video.playsInline = true;
       video.autoplay = true;
-      // Calling play() can throw on some browsers if not triggered by user
-      void video.play().catch(() => {});
+      const play = () => video.play().catch(() => {});
+      if (video.readyState >= 2) {
+        play();
+      } else {
+        video.addEventListener('canplay', play, { once: true });
+      }
       return video;
     });
 
-    const textures = videos.map((video) => (video ? new THREE.VideoTexture(video) : null));
+    const textures = videos.map((video) => {
+      if (!video) return null;
+      const texture = new THREE.VideoTexture(video);
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.format = THREE.RGBAFormat;
+      texture.flipY = false;
+      return texture;
+    });
 
     const mesh = meshRef.current;
     if (Array.isArray(mesh.material)) {
@@ -60,7 +73,10 @@ export default function VideoCube({ sources }: VideoCubeProps) {
     };
   }, [sources]);
 
-  const materials = Array.from({ length: 6 }, () => new THREE.MeshBasicMaterial({ color: 'black' }));
+  const materials = useMemo(
+    () => Array.from({ length: 6 }, () => new THREE.MeshBasicMaterial({ color: 'black', side: THREE.FrontSide })),
+    []
+  );
 
   return (
     <mesh

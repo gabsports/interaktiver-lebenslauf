@@ -22,9 +22,10 @@ export default function ThreeScene() {
         <Starfield count={6000} radius={100} />
 
         {/**
-         * Display a single video on the front face of the cube. Place your
-         * video file in `public/videos` and reference it here. The other sides
-         * fall back to the base material color.
+         * Display a single video on the front face of the cube. Place custom
+         * videos under `public/videos` so they can be referenced like
+         * `/videos/your-file.mp4`. Any undefined entries simply use the mesh's
+         * base color as a placeholder.
          */}
         <VideoCube
           sources={[
