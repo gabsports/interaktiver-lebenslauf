@@ -73,10 +73,7 @@ export default function VideoCube({ sources }: VideoCubeProps) {
     };
   }, [sources]);
 
-  const materials = useMemo(
-    () => Array.from({ length: 6 }, () => new THREE.MeshBasicMaterial({ color: 'black', side: THREE.FrontSide })),
-    []
-  );
+  const materials = Array.from({ length: 6 }, () => new THREE.MeshBasicMaterial({ color: 'black' }));
 
   return (
     <mesh
