@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -60,7 +60,11 @@ export default function VideoCube({ sources }: VideoCubeProps) {
     };
   }, [sources]);
 
-  const materials = Array.from({ length: 6 }, () => new THREE.MeshBasicMaterial({ color: 'black' }));
+  // create the materials once so video textures are not lost on re-render
+  const materials = useMemo(
+    () => Array.from({ length: 6 }, () => new THREE.MeshBasicMaterial({ color: 'black' })),
+    []
+  );
 
   return (
     <mesh
