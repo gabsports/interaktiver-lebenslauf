@@ -3,32 +3,34 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 interface VideoCubeProps {
-  /**
-   * Optional array of six video sources in the order
-   * [right, left, top, bottom, front, back].
-   * Undefined entries will simply use the mesh's base
-   * material color instead of a video texture.
-   */
   sources?: (string | undefined)[];
 }
 
 export default function VideoCube({ sources }: VideoCubeProps) {
-  const meshRef = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.Material[]>>(null!);
+  const meshRef = useRef<THREE.Mesh>(null!);
+  const texturesRef = useRef<(THREE.VideoTexture | null)[]>([]);
   const [hovered, setHovered] = useState(false);
 
-  // Continuously rotate the cube, slowing down when hovered
+  // 1) useFrame: Rotation & Texture-Update
   useFrame(() => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += hovered ? 0.0005 : 0.01;
-    }
+    if (!meshRef.current) return;
+
+    // Rotation
+    meshRef.current.rotation.y += hovered ? 0.0005 : 0.01;
+
+    // Video-Texturen bei jedem Frame updaten
+    texturesRef.current.forEach((tex) => {
+      if (tex && tex.image.readyState >= tex.image.HAVE_CURRENT_DATA) {
+        tex.needsUpdate = true;
+      }
+    });
   });
 
   useEffect(() => {
-    // Place your videos in the `public/videos` folder and reference
-    // them here (e.g. '/videos/front.mp4').
     const defaultSources = Array(6).fill(undefined);
     const videoSources = sources ?? defaultSources;
 
+    // 2) Videos anlegen und abspielen
     const videos = videoSources.map((src) => {
       if (!src) return null;
       const video = document.createElement('video');
@@ -37,43 +39,43 @@ export default function VideoCube({ sources }: VideoCubeProps) {
       video.loop = true;
       video.muted = true;
       video.playsInline = true;
-      video.autoplay = true;
+      // Autoplay starten, sobald 'canplay'
       const play = () => video.play().catch(() => {});
-      if (video.readyState >= 2) {
-        play();
-      } else {
-        video.addEventListener('canplay', play, { once: true });
-      }
+      if (video.readyState >= 2) play();
+      else video.addEventListener('canplay', play, { once: true });
       return video;
     });
 
-    const textures = videos.map((video) => {
+    // 3) VideoTexture erzeugen und im Ref speichern
+    texturesRef.current = videos.map((video) => {
       if (!video) return null;
-      const texture = new THREE.VideoTexture(video);
-      texture.minFilter = THREE.LinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-      texture.format = THREE.RGBAFormat;
-      texture.flipY = false;
-      return texture;
+      const tex = new THREE.VideoTexture(video);
+      tex.minFilter = THREE.LinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.format = THREE.RGBAFormat;
+      tex.flipY = false;
+      return tex;
     });
 
-    const mesh = meshRef.current;
+    // 4) Texturen auf die sechs Materialien der Mesh anwenden
+    const mesh = meshRef.current!;
     if (Array.isArray(mesh.material)) {
-      textures.forEach((texture, index) => {
+      texturesRef.current.forEach((texture, i) => {
         if (!texture) return;
-        const material = mesh.material[index] as THREE.MeshBasicMaterial;
-        material.map = texture;
-        material.needsUpdate = true;
+        const mat = (mesh.material as THREE.Material[])[i] as THREE.MeshBasicMaterial;
+        mat.map = texture;
+        mat.needsUpdate = true;
       });
     }
 
+    // Cleanup: Videos pausieren & Texturen freigeben
     return () => {
-      videos.forEach((video) => video && video.pause());
-      textures.forEach((texture) => texture && texture.dispose());
+      videos.forEach((v) => v && v.pause());
+      texturesRef.current.forEach((t) => t && t.dispose());
     };
   }, [sources]);
 
- // create the materials once so video textures are not lost on re-render
+  // 5) Materialien einmalig erstellen
   const materials = useMemo(
     () => Array.from({ length: 6 }, () => new THREE.MeshBasicMaterial({ color: 'black' })),
     []
