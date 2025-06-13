@@ -1,53 +1,17 @@
-import { useState } from 'react';
-import ThreeScene from './components/ThreeScene';
-import Timeline, { type TimelineEvent } from './components/Timeline';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import TimelinePage from './pages/TimelinePage';
+import { events } from './data/events';
 import './styles/main.css';
 
 export default function App() {
-  const events: TimelineEvent[] = [
-    {
-      id: '1',
-      title: 'Geburt',
-      date: '1990',
-      description: 'Ich wurde geboren.',
-    },
-    {
-      id: '2',
-      title: 'Studium',
-      date: '2010',
-      description: 'Beginn meines Studiums.',
-    },
-    {
-      id: '3',
-      title: 'Erster Job',
-      date: '2015',
-      description: 'Start in der IT Branche.',
-    },
-  ];
-
-  const [selected, setSelected] = useState<TimelineEvent | null>(null);
-
   return (
-    <div className="app-container">
-      <ThreeScene
-        events={events}
-        onSelect={(id) => {
-          const event = events.find((e) => e.id === id) || null;
-          setSelected(event);
-        }}
-      />
-      <div style={{ padding: '2rem' }}>
-        <Timeline events={events} onSelect={(id) => {
-          const event = events.find((e) => e.id === id) || null;
-          setSelected(event);
-        }} />
-      </div>
-      {selected && (
-        <div className="modal" onClick={() => setSelected(null)}>
-          <Timeline.Detail event={selected} />
-        </div>
-      )}
-      </div>
-    );
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage events={events} />} />
+        <Route path="/timeline" element={<TimelinePage events={events} />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
