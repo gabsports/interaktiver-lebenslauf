@@ -36,11 +36,18 @@ export default function App() {
           setSelected(event);
         }}
       />
+      <div style={{ padding: '2rem' }}>
+        <Timeline events={events} onSelect={(id) => {
+          const event = events.find((e) => e.id === id) || null;
+          setSelected(event);
+        }} />
+      </div>
       {selected && (
         <div className="modal" onClick={() => setSelected(null)}>
           <Timeline.Detail event={selected} />
         </div>
       )}
-    </div>
-  );
+      </div>
+    );
+}
 
