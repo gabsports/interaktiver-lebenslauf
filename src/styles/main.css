@@ -26,6 +26,8 @@ body {
   border: 1px solid rgb(0, 11, 11);
   box-shadow: 0 0 20px rgba(57, 70, 70, 0.6);
   transition: box-shadow 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .glow-button:hover {
