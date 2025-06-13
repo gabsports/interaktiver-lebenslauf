@@ -26,7 +26,7 @@
 
 .timeline-item {
   position: relative;
-  width: calc(50% - 2rem);
+  width: calc(10% - 2rem);
   margin: 1rem 0;
   padding: 1rem;
   background: #fff;
