@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { motion, type Variants } from 'framer-motion';
+import '../styles/Timeline.css';
 
 export interface TimelineLink {
   label: string;
