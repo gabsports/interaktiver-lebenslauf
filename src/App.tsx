@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ThreeScene from './components/ThreeScene';
 import Timeline, { type TimelineEvent } from './components/Timeline';
 import './styles/main.css';
 
@@ -28,10 +29,13 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <Timeline events={events} onSelect={(id) => {
-        const event = events.find((e) => e.id === id) || null;
-        setSelected(event);
-      }} />
+      <ThreeScene
+        events={events}
+        onSelect={(id) => {
+          const event = events.find((e) => e.id === id) || null;
+          setSelected(event);
+        }}
+      />
       {selected && (
         <div className="modal" onClick={() => setSelected(null)}>
           <Timeline.Detail event={selected} />
@@ -39,7 +43,4 @@ export default function App() {
       )}
     </div>
   );
-}
-    
-      
-   
+

@@ -1,11 +1,17 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import VideoCube from './VideoCube';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import Starfield from './Starfield';
 import TopButtonBar from './TopButtonBar';
+import TimelineCube from './TimelineCube';
+import type { TimelineEvent } from './Timeline';
 
-export default function ThreeScene() {
+interface ThreeSceneProps {
+  events: TimelineEvent[];
+  onSelect: (id: string) => void;
+}
+
+export default function ThreeScene({ events, onSelect }: ThreeSceneProps) {
   return (
     <div className="relative flex justify-center items-center three-scene-container">
       <TopButtonBar />
@@ -21,22 +27,14 @@ export default function ThreeScene() {
 
         <Starfield count={6000} radius={100} />
 
-        {/**
-         * Display a single video on the front face of the cube. Place custom
-         * videos under `public/videos` so they can be referenced like
-         * `/videos/your-file.mp4`. Any undefined entries simply use the mesh's
-         * base color as a placeholder.
-         */}
-        <VideoCube
-          sources={[
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            '/videos/front.mp4', // Front face
-            undefined,
-          ]}
-        />
+        {events.map((event, idx) => (
+          <TimelineCube
+            key={event.id}
+            event={event}
+            position={[idx * 3 - (events.length - 1) * 1.5, 0, 0]}
+            onSelect={onSelect}
+          />
+        ))}
 
         <OrbitControls />
         <EffectComposer>
