@@ -45,11 +45,70 @@ body {
 }
 
 /* Timeline styles */
+.timeline-container {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  padding: 2rem 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-50%);
+}
+
 .timeline-item {
+  position: relative;
+  width: calc(50% - 2rem);
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
   opacity: 0;
   transform: translateX(-50px);
   transition: all 0.5s ease;
   color: black;
+}
+
+.timeline-item.left {
+  margin-right: auto;
+}
+
+.timeline-item.right {
+  margin-left: auto;
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.timeline-item.left::after {
+  right: -24px;
+}
+
+.timeline-item.right::after {
+  left: -24px;
 }
 
 .timeline-item.visible {

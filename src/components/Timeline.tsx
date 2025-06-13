@@ -49,28 +49,25 @@ export default function Timeline({ events, onSelect }: TimelineProps) {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      {events.map(event => (
+    <div ref={containerRef} className="timeline-container">
+      {events.map((event, idx) => (
         <motion.div
           key={event.id}
-          className="timeline-item"
+          className={`timeline-item ${idx % 2 === 0 ? 'left' : 'right'}`}
           initial="hidden"
-          animate={event ? 'visible' : 'hidden'}
+          animate="visible"
           variants={itemVariants}
-          style={{
-            background: '#fff',
-            padding: '1rem',
-            borderRadius: '8px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-            cursor: 'pointer',
-          }}
           onClick={() => onSelect(event.id)}
         >
           <h3>{event.title}</h3>
           <p style={{ fontStyle: 'italic' }}>{event.date}</p>
           <p>{event.description}</p>
           {event.imageUrl && (
-            <img src={event.imageUrl} alt={event.title} style={{ width: '100%', borderRadius: '4px', marginTop: '0.5rem' }} />
+            <img
+              src={event.imageUrl}
+              alt={event.title}
+              style={{ width: '100%', borderRadius: '4px', marginTop: '0.5rem' }}
+            />
           )}
         </motion.div>
       ))}
