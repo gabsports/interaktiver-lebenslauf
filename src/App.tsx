@@ -8,7 +8,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage events={events} />} />
+        {/* Show the river timeline on the homepage */}
+        <Route path="/" element={<TimelinePage events={events} />} />
+        {/* Old 3D scene moved to /3d */}
+        <Route path="/3d" element={<HomePage events={events} />} />
         <Route path="/timeline" element={<TimelinePage events={events} />} />
       </Routes>
     </BrowserRouter>
