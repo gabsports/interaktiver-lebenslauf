@@ -10,7 +10,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: rgb(78, 144, 215);
+  /* river like background */
+  background: linear-gradient(
+    to bottom,
+    #cce6ff 0%,
+    #b3dcff 20%,
+    #99d1ff 40%,
+    #80c7ff 60%,
+    #66bdff 80%,
+    #4db3ff 100%
+  );
+  background-size: 100% 200%;
+  animation: riverFlow 15s linear infinite;
 }
 
 /* central timeline line */
@@ -20,8 +31,13 @@
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 2px;
-  background: #999;
+  width: 4px;
+  background: linear-gradient(
+    to bottom,
+    #4db3ff 0%,
+    #66bdff 50%,
+    #4db3ff 100%
+  );
   transform: translateX(-50%);
 }
 
@@ -133,4 +149,14 @@
   border-radius: 8px;
   max-width: 600px;
   width: 100%;
+}
+
+/* animation for flowing background */
+@keyframes riverFlow {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -100%;
+  }
 }
