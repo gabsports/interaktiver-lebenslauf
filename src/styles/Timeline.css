@@ -1,123 +1,71 @@
-/* src/styles/Timeline.css - dedicated styles for the timeline component */
+/* src/styles/Timeline.css - river timeline styling */
 
 .timeline-container {
   position: relative;
-  width: 80%;
+  max-width: 900px;
   margin: 0 auto;
   padding: 2rem 0;
-  height: 100vh;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  /* river like background */
-  background: linear-gradient(
-    to bottom,
-    #cce6ff 0%,
-    #b3dcff 20%,
-    #99d1ff 40%,
-    #80c7ff 60%,
-    #66bdff 80%,
-    #4db3ff 100%
-  );
-  background-size: 100% 200%;
-  animation: riverFlow 15s linear infinite;
 }
 
-/* central timeline line */
+/* vertical river line */
 .timeline-container::before {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
   left: 50%;
-  width: 4px;
-  background: linear-gradient(
-    to bottom,
-    #4db3ff 0%,
-    #66bdff 50%,
-    #4db3ff 100%
-  );
+  top: 0;
+  width: 12px;
+  height: 100%;
   transform: translateX(-50%);
+  background: linear-gradient(to bottom, #66ccff, #3399ff, #003366);
+  border-radius: 6px;
 }
 
 .timeline-item {
   position: relative;
-  width: calc(10% - 2rem);
-  margin: 1rem 0;
+  width: 42%;
   padding: 1rem;
+  margin-bottom: 3rem;
   background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: black;
   cursor: pointer;
   opacity: 0;
   transform: translateX(-50px);
   transition: all 0.5s ease;
-  color: black;
 }
 
 .timeline-item.left {
-  margin-right: auto;
+  float: left;
+  clear: both;
+  text-align: right;
+  margin-right: 58%;
 }
 
 .timeline-item.right {
-  margin-left: auto;
+  float: right;
+  clear: both;
+  text-align: left;
+  margin-left: 58%;
 }
 
 .timeline-item::after {
   content: '';
   position: absolute;
   top: 1rem;
-  width: 10px;
-  height: 10px;
-  background: #fff;
-  border: 2px solid #ccc;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  z-index: 1;
+  background: #fff;
+  border: 4px solid #3399ff;
 }
 
 .timeline-item.left::after {
-  right: -24px;
+  right: -10px;
 }
 
 .timeline-item.right::after {
-  left: -24px;
-}
-.timeline-item.left::before,
-.timeline-item.right::before {
-  content: '';
-  position: absolute;
-  top: 1rem;
-  border-width: 8px;
-  border-style: solid;
-}
-
-.timeline-item.left::before {
-  right: -16px;
-  border-color: transparent transparent transparent #fff;
-}
-
-.timeline-item.right::before {
-  left: -16px;
-  border-color: transparent #fff transparent transparent;
-}.timeline-item.left::before,
-.timeline-item.right::before {
-  content: '';
-  position: absolute;
-  top: 1rem;
-  border-width: 8px;
-  border-style: solid;
-}
-
-.timeline-item.left::before {
-  right: -16px;
-  border-color: transparent transparent transparent #fff;
-}
-
-.timeline-item.right::before {
-  left: -16px;
-  border-color: transparent #fff transparent transparent;
+  left: -10px;
 }
 
 .timeline-item.visible {
@@ -151,12 +99,22 @@
   width: 100%;
 }
 
-/* animation for flowing background */
-@keyframes riverFlow {
-  from {
-    background-position: 0 0;
+@media (max-width: 700px) {
+  .timeline-item {
+    float: none;
+    width: calc(100% - 4rem);
+    margin: 2rem auto;
+    text-align: left;
   }
-  to {
-    background-position: 0 -100%;
+
+  .timeline-item.left,
+  .timeline-item.right {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .timeline-item::after {
+    left: calc(50% - 10px);
+    right: auto;
   }
 }
